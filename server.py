@@ -5,17 +5,13 @@ app = Flask("Emotion Detector")
 
 @app.route("/emotionDetector")
 def sent_analyzer():
-    # Retrieve the text to analyze from the request arguments
     text_to_analyze = request.args.get('textToAnalyze')
-
-    # Pass the text to the emotion_detector function and store the response
     response = emotion_detector(text_to_analyze)
 
-    # Check if the response is valid (optional but good practice)
-    if response is None:
-        return "Invalid text! Please try again."
+    # Task 7: Error handling for None dominant_emotion
+    if response['dominant_emotion'] is None:
+        return "Invalid text! Please try again!"
 
-    # Return a formatted string with the sentiment analysis results
     return (
         f"For the given statement, the system response is 'anger': {response['anger']}, "
         f"'disgust': {response['disgust']}, 'fear': {response['fear']}, "
